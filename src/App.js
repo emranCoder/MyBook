@@ -1,24 +1,26 @@
 import "./App.css";
-import {
-  BrowserRouter,
-  Link,
-  Route,
-  Routes,
-} from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import About from "./components/About";
 import Home from "./components/Home";
+import NotesState from "./context/notes/NotesState";
+import Alert from "./components/Alert";
 
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        </Routes>
-      </BrowserRouter>
+      <NotesState>
+        <BrowserRouter>
+          <Navbar />
+          <Alert message="This is Devolped By EmranCoder" />
+          <div className="container">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+            </Routes>
+          </div>
+        </BrowserRouter>
+      </NotesState>
     </>
   );
 }

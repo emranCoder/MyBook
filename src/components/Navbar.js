@@ -1,11 +1,21 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+
+
+
 export default function Navbar() {
+  let location = useLocation();
+
+useEffect(() => {
+    console.log(location);
+  }, [location]);
+
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
         <Link className="navbar-brand" to="/">
-          Navbar
+          MyBook
         </Link>
         <button
           className="navbar-toggler d-lg-none"
@@ -21,12 +31,12 @@ export default function Navbar() {
         <div className="collapse navbar-collapse" id="collapsibleNavId">
           <ul className="navbar-nav me-auto mt-2 mt-lg-0">
             <li className="nav-item">
-              <Link className="nav-link active" to="/" aria-current="page">
+              <Link className={`nav-link ${location.pathname==="/"? "active" : ""}`} to="/" aria-current="page">
                 Home
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/about">
+              <Link className={`nav-link ${location.pathname==="/about"? "active" : ""}`} to="/about">
                 About
               </Link>
             </li>
