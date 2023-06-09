@@ -12,7 +12,7 @@ useEffect(() => {
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <div className="container">
+      <div className="container-fluid">
         <Link className="navbar-brand" to="/">
           MyBook
         </Link>
@@ -41,17 +41,8 @@ useEffect(() => {
             </li>
           </ul>
           <form className="d-flex my-2 my-lg-0">
-            <input
-              className="form-control me-sm-2"
-              type="text"
-              placeholder="Search"
-            />
-            <button
-              className="btn btn-outline-success my-2 my-sm-0"
-              type="submit"
-            >
-              Search
-            </button>
+            <Link className="btn btn-primary my-2 mx-2" to = "/login" role="button">LogIn</Link>
+            <Link className="btn btn-primary my-2" to = "/register"  role="button">Register</Link>
           </form>
         </div>
       </div>

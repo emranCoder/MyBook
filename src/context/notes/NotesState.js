@@ -25,7 +25,6 @@ export default function NotesState(props) {
     });
 
     const json = await response.json();
-    console.log(json);
     setNotes(json);
 
   }
@@ -33,7 +32,6 @@ export default function NotesState(props) {
   //Add Note
   const addNote = async (title, description, tag) => {
     //TODO: API CALL
-    console.log({ title, description, tag });
 
     //API Call
     const url = `${host}/api/notes/addnote`;
@@ -45,18 +43,7 @@ export default function NotesState(props) {
       },
       body: JSON.stringify({ title, description, tag }), // body data type must match "Content-Type" header
     });
-    const json = response.json();
-    console.log(json);
-
-    const note = {
-      "_id": "6470be53e4c766741045a626c12",
-      "user": "646cf521345787efbcb3c94f0e42b",
-      "title": title,
-      "description": description,
-      "tags": tag,
-      "date": "2023-05-26T14:12:35.350Z",
-      "__v": 0
-    };
+    const note = await response.json();
     setNotes(notes.concat(note));
   }
 
@@ -73,10 +60,7 @@ export default function NotesState(props) {
       },
     });
     const json = response.json();
-    console.log(json);
 
-
-    console.log("Deleting the note with id: " + id);
     const newNotes = notes.filter((note) => { return note._id !== id });
     setNotes(newNotes);
   }
@@ -95,7 +79,6 @@ export default function NotesState(props) {
       body: JSON.stringify({ title, description, tag }), // body data type must match "Content-Type" header
     });
     const json = response.json();
-    console.log(json);
 
 
     let newNotes = JSON.parse(JSON.stringify(notes));
@@ -103,14 +86,14 @@ export default function NotesState(props) {
     //Logic to edit the client
     for (let index = 0; index < notes.length; index++) {
       const element = notes[index];
-      if (element._id == id) {
+      if (element._id === id) {
         newNotes[index].title = title;
         newNotes[index].description = description;
         newNotes[index].tag = tag;
-        return setNotes(newNotes);
-      }
-      
+        break;
+      } 
     }
+    return setNotes(newNotes);
     
 
   }

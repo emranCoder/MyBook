@@ -3,12 +3,11 @@ import { useContext } from 'react'
 import noteContext from '../context/notes/NoteContext';
 import NoteItem from './NoteItem';
 import AddNote from './AddNote';
-import userEvent from '@testing-library/user-event';
 
-export default function Notes() {
+export default function Notes(props) {
 
   const context = useContext(noteContext);
-  const { notes, addNote, getNotes, editNote } = context;
+  const { notes, getNotes, editNote } = context;
   useEffect(() => {
     getNotes();
   }, []);
@@ -20,6 +19,7 @@ export default function Notes() {
   const handleClick = (e) => {
     editNote(note.id, note.etitle, note.edescription, note.etag);
     refClose.current.click();
+    props.showAlert("Updated Succefully!", "success"); 
   }
   const handleOnchange = (e) => {
     setNote({ ...note, [e.target.name]: e.target.value });
@@ -28,11 +28,12 @@ export default function Notes() {
   const updateNote = (currentnote) => {
     ref.current.click();
     setNote({ id: currentnote._id, etitle: currentnote.title, edescription: currentnote.description, etag: currentnote.tag });
+    props.showAlert("Updated Succefully!", "success");
   }
 
   return (
     <>
-      <AddNote />
+      <AddNote  showAlert={props.showAlert} />
 
       <button ref={ref} type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Launch demo modal
@@ -71,9 +72,13 @@ export default function Notes() {
       </div>
       <div className="row my-3">
         <h2>Your Notes</h2>
+        <div className="container mx-2" > 
+        {notes.length===0 && 'No Notes To Display.'}
+        </div>
         {notes.map((note) => {
-          return <NoteItem key={note._id} updateNote={updateNote} note={note} />;
+          return <NoteItem key={note._id} updateNote={updateNote} note={note} showAlert={props.showAlert} />;
         })}
+
       </div>
     </>
   )

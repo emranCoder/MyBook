@@ -21,10 +21,10 @@ router.post(
   ],
   async (req, res) => {
     //If there are errors, return Bad request and the errors
-
+    let success = false;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(500).json({ errors: errors.array() });
+      return res.status(500).json({ success, errors: errors.array() });
     }
     try {
       //Check whether the user with this email exists already
@@ -32,7 +32,7 @@ router.post(
       if (user) {
         return res
           .status(400)
-          .json({ error: "sorry a user with this email already exists" });
+          .json({ success, error: "sorry a user with this email already exists" });
       }
 
       const salt = await bcrypt.genSalt(10);
@@ -50,12 +50,13 @@ router.post(
           id: user.id,
         },
       };
-
+      
       const authtoker = jwt.sign({ data }, JWT_SECRET);
-      res.json({ authtoken: authtoker });
+      success = true;
+      res.json({ success, authtoken: authtoker });
     } catch (error) {
       console.error(error.message);
-      res.status(401).send({ errors: "Some Error Occured!!" });
+      res.status(401).send({ success, errors: "Some Error Occured!!" });
     }
   }
 );
@@ -88,9 +89,11 @@ router.post(
       const passwordCompare = await bcrypt.compare(password, user.password);
 
       if (!passwordCompare) {
+        success = false;
         return res
           .status(500)
           .json({
+            success,
             error: "Please Try to login with correct user name & password!",
           });
       }
@@ -100,8 +103,9 @@ router.post(
           id: user.id,
         },
       };
-      const authtoker = jwt.sign({ data }, JWT_SECRET);
-      res.json({ authtoken: authtoker });
+      const authtoken = jwt.sign({ data }, JWT_SECRET);
+      success = true;
+      res.json({ success, authtoken });
     } catch (error) {
       console.error(error.message);
       res.status(401).send({ errors: "Internel Server Error!" });
