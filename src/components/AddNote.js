@@ -14,7 +14,7 @@ export default function AddNote(props) {
         e.preventDefault();
         addNote(note.title, note.description, note.tag);
         setNote({title:"", description: "", tag: ""});
-        props.showAlert("Note Added in Successfully", "success");
+        props.showAlert("Note Added Successfully", "success");
     }
     const handleOnchange = (e)=>{
         setNote({...note,[e.target.name]:e.target.value});

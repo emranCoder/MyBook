@@ -20,7 +20,7 @@ export default function NotesState(props) {
       method: "GET", // *GET, POST, PUT, DELETE, etc.
       headers: {
         "Content-Type": "application/json",
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXIiOnsiaWQiOiI2NDZjZjUxMzdlZmJjYjNjOTRmMGU0MmIifX0sImlhdCI6MTY4NTEwOTkyMn0.XgWNXz3ch_STRaSHUAjE1A6668jyYn7bJwP83QNO7kQ",
+        "auth-token": localStorage.getItem('token'),
       },
     });
 
@@ -39,7 +39,7 @@ export default function NotesState(props) {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
       headers: {
         "Content-Type": "application/json",
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXIiOnsiaWQiOiI2NDZjZjUxMzdlZmJjYjNjOTRmMGU0MmIifX0sImlhdCI6MTY4NTEwOTkyMn0.XgWNXz3ch_STRaSHUAjE1A6668jyYn7bJwP83QNO7kQ",
+        "auth-token": localStorage.getItem('token'),
       },
       body: JSON.stringify({ title, description, tag }), // body data type must match "Content-Type" header
     });
@@ -56,7 +56,7 @@ export default function NotesState(props) {
       method: "DELETE", // *GET, POST, PUT, DELETE, etc.
       headers: {
         "Content-Type": "application/json",
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXIiOnsiaWQiOiI2NDZjZjUxMzdlZmJjYjNjOTRmMGU0MmIifX0sImlhdCI6MTY4NTEwOTkyMn0.XgWNXz3ch_STRaSHUAjE1A6668jyYn7bJwP83QNO7kQ",
+        "auth-token": localStorage.getItem('token'),
       },
     });
     const json = response.json();
@@ -74,7 +74,7 @@ export default function NotesState(props) {
       method: "PUT", // *GET, POST, PUT, DELETE, etc.
       headers: {
         "Content-Type": "application/json",
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InVzZXIiOnsiaWQiOiI2NDZjZjUxMzdlZmJjYjNjOTRmMGU0MmIifX0sImlhdCI6MTY4NTEwOTkyMn0.XgWNXz3ch_STRaSHUAjE1A6668jyYn7bJwP83QNO7kQ",
+        "auth-token": localStorage.getItem('token'),
       },
       body: JSON.stringify({ title, description, tag }), // body data type must match "Content-Type" header
     });
